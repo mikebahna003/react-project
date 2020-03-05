@@ -47,7 +47,7 @@ import React from 'react';
                                 height={99}
                             />
                             <div className="media-body">
-                                <a href="/menulist">
+                                <a href="#menulist">
                                 <h4>รายการที่สั่ง</h4>
                                 </a>
                                 <p>ตรวจสอบรายการที่สั่งจาก โทรศัพท์</p>
@@ -63,7 +63,7 @@ import React from 'react';
                                 height={99}
                             />
                             <div className="media-body">
-                                <a href="/menulist3">
+                                <a href="#menulist3">
                                 <h4>อาหารที่รอเสิร์ฟ</h4>
                                 </a>
                                 <p>ตรวจสอบรายการอาหาร ที่กำลังรอเสริฟ</p>
@@ -79,7 +79,7 @@ import React from 'react';
                                 height={99}
                             />
                             <div className="media-body">
-                                <a href="/checkbill">
+                                <a href="#checkbill">
                                 <h4>เช็คบิล</h4>
                                 </a>
                                 <p>ตรวจสอบยอดที่ต้องชำระและ<br />ทำแบบสอบถามเพื่อ 'รับส่วนลด'</p>

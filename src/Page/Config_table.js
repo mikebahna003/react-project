@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import api from '../Url_api';
+import { Link } from 'react-router-dom';
 
 class Config_table extends React.Component{
 
@@ -58,6 +59,7 @@ class Config_table extends React.Component{
                </div>
               </div>
             </div>
+            <Link to="/logout">Logout</Link>
           </div>
         )
     }
