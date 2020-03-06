@@ -1,6 +1,6 @@
 const api = (props) => {
 
-    let path = "http://apishabu.myseshabu.com/";
+    let path = "https://apishabu.myseshabu.com/";
     switch(props){
        //ดึงประเภทของอาหารทั้งหมด
        case 'getAllCategory' : return path+"food/getAllCategory";
