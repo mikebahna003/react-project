@@ -27,7 +27,7 @@ import QRcode from 'qrcode.react';
                     <div className="col-lg-12">
                     <br /><br /><br />
                         <div className="media align-items-center">
-                        <QRcode className="styleQR" size="250" value={"https://react-project-mobile.herokuapp.com?table="+this.state.table_id}/>
+                        <QRcode className="styleQR" size="250" value={"http://react-project-mobile.herokuapp.com/#/"+this.state.table_id}/>
                
 
                         <div className="media-body">
