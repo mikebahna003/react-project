@@ -60,12 +60,12 @@ import React from 'react';
                                 <a
                                     type="button"
                                     className="btn btn-primary"
-                                    href="/menu"
+                                    href="#menu"
                                 >
                                     ย้อนกลับ
                                 </a>&nbsp;
                                 </h>
-                                <a type="button" className="btn btn-danger" href="/menulist">
+                                <a type="button" className="btn btn-danger" href="#menulist">
                                 ยกเลิกการเลือกทั้งหมด
                                 </a>&nbsp;
                                 <a type="button" className="btn btn-danger" href="#">

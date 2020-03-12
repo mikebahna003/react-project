@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {createStore} from 'redux';
-import commentReducer from './commentReducer';
+import OrderReducer from './OrderReducer';
 import {Provider} from 'react-redux';
 
-const store = createStore(commentReducer);
+
+const store = createStore(OrderReducer);
 
 
 ReactDOM.render(

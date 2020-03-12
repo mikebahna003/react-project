@@ -1,14 +1,14 @@
 import React from 'react';
+import Logo_compo from './logo_compo';
 
  class HomeEdit extends React.Component{
     render(){
         return(
         <div>
         
-        <div className="hero-center">
+        
           <div className="container" align="center">
-            <h3 className="hero-title">Table 1</h3>
-            <img src="assets/image/shabulogo.png" width={300} height={250} /><br /><br />
+          <Logo_compo /><br /><br />
             <h4>
             <button type="button" className="btn-go-prev">
                   &lt;
@@ -28,14 +28,13 @@ import React from 'react';
                 </button>
                 <br /><br />
             </h4>
-            <a className="w3-btn w3-blue w3-round w3-large" href="/menu">
+            <a className="w3-btn w3-blue w3-round w3-large" href="#menu">
               &nbsp;&nbsp; ยืนยัน &nbsp;&nbsp;
               </a>&nbsp;&nbsp;
-              <a className="w3-btn w3-dark-grey w3-round w3-large" href="/menu">
+              <a className="w3-btn w3-dark-grey w3-round w3-large" href="#menu">
               &nbsp; ยกเลิก &nbsp;
               </a>    
-          </div>      
-        </div>
+          </div>
       </div>
         )
     }

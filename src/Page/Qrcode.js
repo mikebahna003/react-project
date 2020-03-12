@@ -7,16 +7,20 @@ import QRcode from 'qrcode.react';
         constructor(props){
           super(props);
           this.state = {
-            
-              table_id: ""
+              table_id: "",
+              bill_id:""
           }
        
       }
 
     componentDidMount(){
+        const table_id = localStorage.getItem('table_id');
+        const bill_id = localStorage.getItem('bill_id');
         this.setState({
-          table_id:localStorage.getItem('table_id')
+            table_id:table_id,
+            bill_id:bill_id
         })
+        
   }
     render(){
         return(
@@ -27,7 +31,7 @@ import QRcode from 'qrcode.react';
                     <div className="col-lg-12">
                     <br /><br /><br />
                         <div className="media align-items-center">
-                        <QRcode className="styleQR" size="250" value={"http://react-project-mobile.herokuapp.com/#/"+this.state.table_id}/>
+                        <QRcode className="styleQR" size="250" value={"https://react-project-mobile.herokuapp.com/#/home/"+this.state.table_id+"/"+this.state.bill_id}/>
                
 
                         <div className="media-body">

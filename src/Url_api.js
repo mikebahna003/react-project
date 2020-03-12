@@ -16,6 +16,10 @@ const api = (props) => {
        case 'getCheckOrder' : return path+"order/getCheckOrder";
        case 'openbill' : return path+"bill/openbill";
        case 'getAllTable' : return path+"table/getAllTable";
+       case 'getOrderGroup' : return path+"order/getOrderGroup";
+       case 'setOrderList' : return path+"order/setOrderList";
+       case 'getBillByID' : return path+"bill/getBillByID";
+       case 'changeStatusBill1' : return path+"bill/changeStatusBill1";
 
 
         default : return "";

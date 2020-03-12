@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import api from '../Url_api';
-import {Link} from 'react-router-dom';
-import QRcode from 'qrcode.react';
+
 
 
  class Home extends React.Component{
@@ -25,6 +24,7 @@ OnSubmit= (e)=>{
   e.preventDefault();
 
   const amount_people = this.getAmountPeople.value;
+ 
   
   axios.post(api('openbill'), 
         JSON.stringify({
@@ -32,8 +32,10 @@ OnSubmit= (e)=>{
             'amount' : amount_people
         }))
   .then(res => {
-     if(res.data == 1){
-      this.props.history.push('/qrcode');
+     if(res.data !== null){
+       const bill_id = res.data[0].b_id;
+       localStorage.setItem('bill_id',bill_id);
+       this.props.history.push('/qrcode');
      }
   })
 }
@@ -55,7 +57,7 @@ OnSubmit= (e)=>{
           <div className="hero-right">
           <form onSubmit={this.OnSubmit}>
             <div className="container" align="center">
-        <h3 className="hero-title">Table {this.state.table_id}</h3>
+        <h3 className="hero-title">โต๊ะ {this.state.table_id}</h3>
               <img src="assets/image/shabulogo.png" width={300} height={250} />
               <br />
 
@@ -78,7 +80,7 @@ OnSubmit= (e)=>{
                 </h3>
                 <br />
 
-              <button className="w3-btn w3-blue w3-round w3-large" type="submit" href="/qrcode">ยืนยัน</button>
+              <button className="w3-btn w3-blue w3-round w3-large" type="submit">ยืนยัน</button>
               
               &nbsp;&nbsp;
               <button className="w3-btn w3-dark-grey w3-round w3-large" type="reset">ยกเลิก</button>

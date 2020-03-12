@@ -120,7 +120,7 @@ import React from 'react';
                                         />
                                     </div>
                                     <div className="modal-footer">
-                                    <a href="#homeedit"><button type="button" className="btn btn-default" class="btn btn-danger btn-sm">
+                                    <a href="#homeedit"><button type="button" className="btn btn-default">
                                         submit
                                         </button></a>
                                     </div>

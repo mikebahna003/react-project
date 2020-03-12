@@ -117,7 +117,7 @@ import api from '../Url_api';
                                     {/* <button type="button" class="btn btn-primary">ยืนยัน</button> */}
                                     {/* <button type="button" class="btn btn-danger">ยกเลือกการเลือกทั้งหมด</button>
                                 <button type="button" class="btn btn-danger">ยกเลิอกรายการสั่งทั้งหมด</button> */}
-                                    <a className="w3-btn w3-dark-grey w3-round w3-small" href="/menu">
+                                    <a className="w3-btn w3-dark-grey w3-round w3-small" href="#menu">
                                     ย้อนกลับ
                                     </a>
                                 </td>

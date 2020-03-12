@@ -35,7 +35,7 @@ class Config_table extends React.Component{
             <div className="limiter">
             <div className="container-login100">
               <div className="wrap-configtable">
-              <span className="login100-form-title">Config Table</span>
+              <span className="login100-form-title">เลือกโต๊ะ</span>
                
                <div className="datalist">
                  
@@ -55,11 +55,12 @@ class Config_table extends React.Component{
               </button>
             </div>
                 </form>
-
+                
                </div>
+              
               </div>
             </div>
-            <Link to="/logout">Logout</Link>
+             <Link to="/logout">Logout</Link>
           </div>
         )
     }

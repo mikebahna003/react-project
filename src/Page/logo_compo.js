@@ -18,7 +18,7 @@ import React from 'react';
     render(){
         return(
             <div className="container" align="center">
-                 <h7 className="hero-title">Table {this.state.table_id}</h7>
+                 <h6 className="hero-title">โต๊ะ {this.state.table_id}</h6>
                 <img src="assets/image/shabulogo.png" width={150} height={150} />
             </div>
         

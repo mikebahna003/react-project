@@ -16,17 +16,18 @@ import Logo_compo from './logo_compo';
 
 
     componentDidMount(){
-        
-        this.onPageChange(
-            api('getOrderfoodbytableStatus2')
-        );
+        const table_id = localStorage.getItem('table_id');
+        this.setState({
+            table_id:table_id
+        })
+        this.onPageChange(api('getOrderfoodbytableStatus1'),table_id);
        
     }
 
-    onPageChange(url){
+    onPageChange(url,table_id){
         axios.post(url, 
             JSON.stringify({
-                'table_id' : this.state.table_id
+                'table_id' : table_id
             }))
       .then(res => {
           this.setState({
@@ -67,7 +68,7 @@ import Logo_compo from './logo_compo';
                                     return(
                                 
                             <tr key={i}>
-                                <td>{obj.o_id}</td>
+                                <td>{i+1}</td>
                                 <td>
                                     <h6>{obj.f_name}</h6>
                                 </td>

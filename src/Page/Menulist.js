@@ -2,6 +2,8 @@ import React from 'react';
 import Logo_compo from './logo_compo';
 import axios from 'axios';
 import api from '../Url_api';
+import Increment from './Increment';
+import {connect} from 'react-redux';
 
 class Menulist extends React.Component {
 
@@ -12,50 +14,72 @@ class Menulist extends React.Component {
             table_id: 1,
             food: "",
             order_id: "",
-            statusDelete: ""
+            statusDelete: "",
+            order_list:[]
 
         }
         this.deletefoodinorder = this.deletefoodinorder.bind(this);
     }
 
     componentDidMount() {
-        this.fetchAllData(); //เริ่มทำเป็นอันดับแรก
+        const table_id = localStorage.getItem('table_id');
+        this.setState({
+            table_id:table_id
+        })
+        this.fetchAllData(table_id); //เริ่มทำเป็นอันดับแรก
     }
 
     //แสดงข้อมูลทังหมดตามหมายเลขโต๊ะ
-    fetchAllData() {
-        let id = this.state.table_id;
-        axios.post(api('getCheckOrder'), 
+    fetchAllData(table_id) {
+        let id = table_id;
+        
+        axios.post(api('getOrderGroup'), 
         JSON.stringify({
-            'table_id' : this.state.table_id
+            'table_id' : id
         }))
         .then(res => {
-         this.setState ({
-             data:res.data
-         })
+          for(var i = 0 ; i<res.data.length ; i++){
+            const data = {
+                id:res.data[i].co_f_id,
+                name:res.data[i].f_name,
+                amount:res.data[i].total_amount,
+               
+            }
+            this.props.dispatch({
+                type:'ADD_FOOD',
+                data
+            });
+          }
         })
     }
 
-    deletefoodinorder(orderId, foodId) {
-        let url = "http://localhost/project_shabu/index.php/orderfood/deletefoodinorder?order=" + orderId + "&food=" + foodId;
-        fetch(url)
-            .then(res => res.json())
-            .then(result => {
-                this.setState({
-                    statusDelete: result,
-                });
-                console.log("data:" + this.state.statusDelete);
-                this.fetchAllData() // เมื่อลบแล้วให้แสดงรายการข้อมูลที่เหลือหลังจากลบ
-            },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    deletefoodinorder(food_id) {
+        this.props.dispatch({
+            type:'DELETE_FOOD',
+            id:food_id
+        });
     }
-
+    onClickSubmit= (e) => {
+        e.preventDefault();
+        const table_id = this.state.table_id;
+        
+        const data = this.props.orders;
+        axios.post(api('setOrderList'), 
+        JSON.stringify({
+        'table_id':table_id,
+        'data':data
+        }))
+        .then(res => {
+       
+        if(res.data == 1){
+            this.props.dispatch({
+            type:'DESTROY_SESSION'
+        });
+        this.props.history.push('/menu');
+        }
+        })
+        
+    }
     
 
     render() {
@@ -74,7 +98,7 @@ class Menulist extends React.Component {
                                     <tbody>
                                         <tr>
                                             <th>
-                                                <h5>เลือก</h5>
+                                                <h5>ลำดับ</h5>
                                             </th>
                                             <th>
                                                 <h5>รายการที่สั่ง</h5>
@@ -86,42 +110,23 @@ class Menulist extends React.Component {
                                                 <h5>ลบ</h5>
                                             </th>
                                         </tr>
-
+                                        
                                         {//-----------------------------------
-                                            this.state.data.map(data =>
+                                        this.props.orders == undefined ? "":
+                                            this.props.orders.map((order,idx) =>
 
-                                                <tr>
+                                                <tr key={idx}>
                                                     <td>
-                                                        <input type="checkbox" name="vehicle1" defaultValue="Bike" />
+                                                        <h6>{idx+1}</h6>
                                                     </td>
                                                     <td>
-                                                        <h6>{data.f_name}</h6>
+                                                        <h6>{order.name}</h6>
                                                     </td>
                                                     <td>
-                                                        <button type="button" className="btn-go-prev">
-                                                            &#x02013;
-                            </button>&nbsp;
-                            {/* <select name="ele_select" id="ele_select" value={data.co_amount}>
-                                { data.co_amount == 1 ? <option value={1} selected>1</option> :<option value={1}>1</option>}
-                                { data.co_amount == 2 ? <option value={2} selected>2</option> :<option value={2}>2</option>}
-                                { data.co_amount == 3 ? <option value={3} selected>3</option> :<option value={3}>3</option>}
-                                { data.co_amount == 4 ? <option value={4} selected>4</option> :<option value={4}>4</option>}
-                                { data.co_amount == 5 ? <option value={5} selected>5</option> :<option value={5}>5</option>}
-                                { data.co_amount == 6 ? <option value={6} selected>6</option> :<option value={6}>6</option>}
-                                { data.co_amount == 7 ? <option value={7} selected>7</option> :<option value={7}>7</option>}
-                                { data.co_amount == 8 ? <option value={8} selected>8</option> :<option value={8}>8</option>}
-                                { data.co_amount == 9 ? <option value={9} selected>9</option> :<option value={9}>9</option>}
-                                { data.co_amount == 10 ? <option value={10} selected>10</option> :<option value={10}>10</option>}
-                                                           
-                                                        </select> &nbsp; */}
-                                                        <button type="button" class="btn btn-outline-secondary">{data.co_amount}</button> &nbsp;
-                                                        
-                            <button type="button" className="btn-go-next">
-                                                            &#x0002B;
-                            </button>
+                                                    <Increment id={order.id} name={order.name} amount={order.amount}/>
                                                     </td>
                                                     <td>
-                                                        <button onClick={this.deletefoodinorder.bind("Undata", data.o_id, data.o_f_id)} className="btn btn-danger">
+                                                        <button onClick={this.deletefoodinorder.bind("Undata", order.id)} className="btn btn-danger">
 
                                                             ลบ
                                 </button>
@@ -140,20 +145,19 @@ class Menulist extends React.Component {
                                             <td>&nbsp;</td>
                                             <td colSpan={2}>
                                                 <h>
-                                                    <a
+                                                    <button onClick={this.onClickSubmit}
                                                         className="w3-btn w3-blue w3-round w3-small"
-                                                        href="/menulist2"
+                                                        
                                                     >
                                                         ยืนยันการสั่งาหาร
-                                </a>&nbsp;
+                                </button>&nbsp;
                                 </h>
-                                                <a className="w3-btn w3-dark-grey w3-round w3-small" href="/menulist">
-                                                    ยกเลิกการเลือกทั้งหมด
-                                </a>&nbsp;
-                                <a className="w3-btn w3-dark-grey w3-round w3-small" href="/menulistcancel">
+                                <a className="w3-btn w3-dark-grey w3-round w3-small" href="#menulistcancel">
                                                     ยกเลิกรายการสั่งทั้งหมด
-                                </a>
-                                                &nbsp;
+                                </a>&nbsp;
+                                <a className="w3-btn w3-dark-grey w3-round w3-small" href="#menu">
+                                    ย้อนกลับ
+                            </a>
                             </td>
                                         </tr>
                                     </tbody>
@@ -170,4 +174,10 @@ class Menulist extends React.Component {
     }
 }
 
-export default Menulist;
+const mapStateToProps = (state) =>{
+    return{
+    orders : state
+    }
+  }
+
+export default connect(mapStateToProps)(Menulist);
